@@ -1,0 +1,10 @@
+build/
+.slang/local/
+obj_dir/
+*.vcd
+*.fst
+*.log
+waves/
+___module_export.json
+___tempbuild_*.vlt
+__pycache__/

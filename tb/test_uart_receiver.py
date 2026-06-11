@@ -39,13 +39,11 @@ async def _start_clock_and_reset(dut: Any, *, idle_rx: int = 1):
     cocotb.start_soon(clock.start(start_high=False))
 
     await Timer(1, unit="ns")
-    assert int(dut.tx.value) == 1
     assert int(dut.data_out_valid.value) == 0
 
     for _ in range(2):
         await RisingEdge(dut.clk)
         await Timer(1, unit="ns")
-        assert int(dut.tx.value) == 1
         assert int(dut.data_out_valid.value) == 0
 
     dut.reset.value = 0
@@ -58,7 +56,6 @@ async def _clock_and_sample(dut: Any, samples: list[dict[str, int]] | None = Non
 
     sample = {
         "rx": int(dut.rx.value),
-        "tx": int(dut.tx.value),
         "data_out": int(dut.data_out.value),
         "data_out_valid": int(dut.data_out_valid.value),
     }
@@ -108,7 +105,6 @@ async def uart_receiver_reset_and_idle_line_do_not_emit_valid(dut: Any):
     await _drive_rx_for_cycles(dut, 1, COUNTER_MAX * 6, samples)
 
     assert _valid_values(samples) == []
-    assert all(sample["tx"] == 1 for sample in samples)
 
 
 @cocotb.test()

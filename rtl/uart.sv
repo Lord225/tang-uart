@@ -266,4 +266,3 @@ module uart #(
         .rx(rx)
     );
 endmodule
-

@@ -2,9 +2,8 @@
 `timescale 1ns / 1ns
 
 module counter #(
-    parameter int unsigned COUNTER_MAX = 2,
-    parameter COUNTER_WIDTH = $clog2(COUNTER_MAX),
-    parameter int unsigned DEFAULT_RESET_VALUE = 0
+    parameter int unsigned COUNTER_MAX,
+    parameter COUNTER_WIDTH = $clog2(COUNTER_MAX)
 ) (
     input logic clk,
     input logic reset,
@@ -19,7 +18,7 @@ module counter #(
 
     always_ff @(posedge clk) begin
         if (reset) begin
-            count <= DEFAULT_RESET_VALUE[COUNTER_WIDTH-1:0];
+            count <= 0;
         end else if (enable) begin
             count <= count_next;
         end

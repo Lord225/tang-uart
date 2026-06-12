@@ -22,7 +22,7 @@ module uart_transmitter #(
     input logic [7:0] data_in,
     input logic data_in_valid,
     output logic tx,
-    output logic done
+    output logic tx_done
 );
     uart_state_t state;
     logic [2:0] bit_index;
@@ -61,7 +61,7 @@ module uart_transmitter #(
         tx_next = tx;
         bit_index_next = bit_index;
         reset_baud_clock = 0;
-        done = 0;
+        tx_done = 0;
 
         case (state)
             IDLE: begin
@@ -69,7 +69,7 @@ module uart_transmitter #(
                     state_next = START;
                     tx_next = 0;
                     reset_baud_clock = 1;
-                    done = 1;
+                    tx_done = 1;
                 end else begin
                     tx_next = 1;
                     bit_index_next = 0;
@@ -227,20 +227,19 @@ endmodule
 
 module uart #(
     parameter int unsigned BAUD = 9600,
-    parameter int unsigned CLOCK_FREQ = 27_000_000,
+    parameter int unsigned CLOCK_FREQ,
     parameter int unsigned COUNTER_MAX = CLOCK_FREQ / BAUD
 ) (
-    input logic clk,  // 27MHz
+    input logic clk,
     input logic reset,
     input logic [7:0] data_in,
     input logic data_in_valid,
     output logic [7:0] data_out,
     output logic data_out_valid,
+    output logic tx_done,
     input logic rx,
     output logic tx
 );
-    logic transmitter_done;
-
     uart_transmitter #(
         .BAUD(BAUD),
         .CLOCK_FREQ(CLOCK_FREQ),
@@ -251,7 +250,7 @@ module uart #(
         .data_in(data_in),
         .data_in_valid(data_in_valid),
         .tx(tx),
-        .done(transmitter_done)
+        .tx_done(tx_done)
     );
 
     uart_receiver #(

@@ -8,3 +8,5 @@ waves/
 ___module_export.json
 ___tempbuild_*.vlt
 __pycache__/
+
+queue.sv

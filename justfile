@@ -16,6 +16,8 @@ visualize:
     python3 tools/visualize_pnr.py
     echo "Visualization written to build/top_visualization.html"
 
+vizualize: default visualize
+
 build-visualize: default visualize
 
 schematic:

@@ -72,7 +72,6 @@ module uart_transmitter #(
                     state_next = START;
                     tx_next = 0;
                     reset_baud_clock = 1;
-                    tx_done = 1;
                 end else begin
                     tx_next = 1;
                     bit_index_next = 0;
@@ -103,6 +102,7 @@ module uart_transmitter #(
 
             STOP: begin
                 if (baud_clk == 1) begin
+                    tx_done = 1;
                     if (data_in_valid) begin
                         state_next = START;
                         tx_next = 1;

@@ -1,3 +1,6 @@
+`ifndef BAUD_GENERATOR_SV
+`define BAUD_GENERATOR_SV
+
 `timescale 1ns / 1ns
 `include "counter.sv"
 
@@ -27,3 +30,5 @@ module baud_generator #(
         .count(count)
     );
 endmodule
+
+`endif

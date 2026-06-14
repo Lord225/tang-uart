@@ -1,4 +1,7 @@
 
+`ifndef COUNTER_SV
+`define COUNTER_SV
+
 `timescale 1ns / 1ns
 
 module counter #(
@@ -35,3 +38,5 @@ module counter #(
         end
     end
 endmodule
+
+`endif

@@ -1,3 +1,6 @@
+`ifndef BUTTON_SV
+`define BUTTON_SV
+
 `timescale 1ns / 1ns
 
 module btn_edge (
@@ -26,3 +29,5 @@ module btn_edge (
         end
     end
 endmodule
+
+`endif

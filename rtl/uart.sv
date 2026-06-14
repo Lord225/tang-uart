@@ -1,3 +1,6 @@
+`ifndef UART_SV
+`define UART_SV
+
 `timescale 1ns / 1ns
 `include "counter.sv"
 `include "baud_generator.sv"
@@ -38,7 +41,7 @@ module uart_transmitter #(
     ) counter_inst (
         .clk(clk),
         .reset(reset || reset_baud_clock),
-        .enable(1),
+        .enable(1'b1),
         .tick(baud_clk),
         .tick_half_cycle(),
         .count()
@@ -145,7 +148,7 @@ module uart_receiver #(
     ) counter_inst (
         .clk(clk),
         .reset(reset || start_bit_tick),
-        .enable(1),
+        .enable(1'b1),
         .tick(),
         .tick_half_cycle(baud_clk_half_cycle),
         .count()
@@ -265,3 +268,5 @@ module uart #(
         .rx(rx)
     );
 endmodule
+
+`endif
